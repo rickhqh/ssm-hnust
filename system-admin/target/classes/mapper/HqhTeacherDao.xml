@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ydlclass.dao.HqhTeacherDao">
+
+    <resultMap type="com.ydlclass.entity.HqhTeacher" id="HqhTeacherMap">
+        <result property="teacherId" column="teacher_id" jdbcType="INTEGER"/>
+        <result property="teacherName" column="teacher_name" jdbcType="VARCHAR"/>
+        <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+        <result property="phonenumber" column="phonenumber" jdbcType="VARCHAR"/>
+        <result property="sex" column="sex" jdbcType="VARCHAR"/>
+        <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="VARCHAR"/>
+        <result property="delFlag" column="del_flag" jdbcType="VARCHAR"/>
+        <result property="loginIp" column="login_ip" jdbcType="VARCHAR"/>
+        <result property="loginDate" column="login_date" jdbcType="TIMESTAMP"/>
+        <result property="createBy" column="create_by" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="updateBy" column="update_by" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="HqhTeacherMap">
+        select
+          teacher_id, teacher_name, nick_name, email, phonenumber, sex, avatar, password, status, del_flag, login_ip, login_date, create_by, create_time, update_by, update_time
+        from hqh_teacher
+        where teacher_id = #{teacherId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="HqhTeacherMap">
+        select
+          teacher_id, teacher_name, nick_name, email, phonenumber, sex, avatar, password, status, del_flag, login_ip, login_date, create_by, create_time, update_by, update_time
+        from hqh_teacher
+        <where>
+            <if test="hqhTeacher.teacherId != null">
+                and teacher_id = #{hqhTeacher.teacherId}
+            </if>
+            <if test="hqhTeacher.teacherName != null and hqhTeacher.teacherName != ''">
+                and teacher_name = #{hqhTeacher.teacherName}
+            </if>
+            <if test="hqhTeacher.nickName != null and hqhTeacher.nickName != ''">
+                and nick_name = #{hqhTeacher.nickName}
+            </if>
+            <if test="hqhTeacher.email != null and hqhTeacher.email != ''">
+                and email = #{hqhTeacher.email}
+            </if>
+            <if test="hqhTeacher.phonenumber != null and hqhTeacher.phonenumber != ''">
+                and phonenumber = #{hqhTeacher.phonenumber}
+            </if>
+            <if test="hqhTeacher.sex != null and hqhTeacher.sex != ''">
+                and sex = #{hqhTeacher.sex}
+            </if>
+            <if test="hqhTeacher.avatar != null and hqhTeacher.avatar != ''">
+                and avatar = #{hqhTeacher.avatar}
+            </if>
+            <if test="hqhTeacher.password != null and hqhTeacher.password != ''">
+                and password = #{hqhTeacher.password}
+            </if>
+            <if test="hqhTeacher.status != null and hqhTeacher.status != ''">
+                and status = #{hqhTeacher.status}
+            </if>
+                and del_flag = "0"
+            <if test="hqhTeacher.loginIp != null and hqhTeacher.loginIp != ''">
+                and login_ip = #{hqhTeacher.loginIp}
+            </if>
+            <if test="hqhTeacher.loginDate != null">
+                and login_date = #{hqhTeacher.loginDate}
+            </if>
+            <if test="hqhTeacher.createBy != null and hqhTeacher.createBy != ''">
+                and create_by = #{hqhTeacher.createBy}
+            </if>
+            <if test="hqhTeacher.createTime != null">
+                and create_time = #{hqhTeacher.createTime}
+            </if>
+            <if test="hqhTeacher.updateBy != null and hqhTeacher.updateBy != ''">
+                and update_by = #{hqhTeacher.updateBy}
+            </if>
+            <if test="hqhTeacher.updateTime != null">
+                and update_time = #{hqhTeacher.updateTime}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from hqh_teacher
+        <where>
+            <if test="teacherId != null">
+                and teacher_id = #{teacherId}
+            </if>
+            <if test="teacherName != null and teacherName != ''">
+                and teacher_name = #{teacherName}
+            </if>
+            <if test="nickName != null and nickName != ''">
+                and nick_name = #{nickName}
+            </if>
+            <if test="email != null and email != ''">
+                and email = #{email}
+            </if>
+            <if test="phonenumber != null and phonenumber != ''">
+                and phonenumber = #{phonenumber}
+            </if>
+            <if test="sex != null and sex != ''">
+                and sex = #{sex}
+            </if>
+            <if test="avatar != null and avatar != ''">
+                and avatar = #{avatar}
+            </if>
+            <if test="password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test="status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test="delFlag != null and delFlag != ''">
+                and del_flag = #{delFlag}
+            </if>
+            <if test="loginIp != null and loginIp != ''">
+                and login_ip = #{loginIp}
+            </if>
+            <if test="loginDate != null">
+                and login_date = #{loginDate}
+            </if>
+            <if test="createBy != null and createBy != ''">
+                and create_by = #{createBy}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                and update_by = #{updateBy}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="teacherId" useGeneratedKeys="true">
+        insert into hqh_teacher(teacher_name, nick_name, email, phonenumber, sex, avatar, password, status, del_flag, login_ip, login_date, create_by, create_time, update_by, update_time)
+        values (#{teacherName}, #{nickName}, #{email}, #{phonenumber}, #{sex}, #{avatar}, #{password}, #{status}, #{delFlag}, #{loginIp}, #{loginDate}, #{createBy}, #{createTime}, #{updateBy}, #{updateTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="teacherId" useGeneratedKeys="true">
+        insert into hqh_teacher(teacher_name, nick_name, email, phonenumber, sex, avatar, password, status, del_flag, login_ip, login_date, create_by, create_time, update_by, update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.teacherName}, #{entity.nickName}, #{entity.email}, #{entity.phonenumber}, #{entity.sex}, #{entity.avatar}, #{entity.password}, #{entity.status}, #{entity.delFlag}, #{entity.loginIp}, #{entity.loginDate}, #{entity.createBy}, #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="teacherId" useGeneratedKeys="true">
+        insert into hqh_teacher(teacher_name, nick_name, email, phonenumber, sex, avatar, password, status, del_flag, login_ip, login_date, create_by, create_time, update_by, update_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.teacherName}, #{entity.nickName}, #{entity.email}, #{entity.phonenumber}, #{entity.sex}, #{entity.avatar}, #{entity.password}, #{entity.status}, #{entity.delFlag}, #{entity.loginIp}, #{entity.loginDate}, #{entity.createBy}, #{entity.createTime}, #{entity.updateBy}, #{entity.updateTime})
+        </foreach>
+        on duplicate key update
+        teacher_name = values(teacher_name),
+        nick_name = values(nick_name),
+        email = values(email),
+        phonenumber = values(phonenumber),
+        sex = values(sex),
+        avatar = values(avatar),
+        password = values(password),
+        status = values(status),
+        del_flag = values(del_flag),
+        login_ip = values(login_ip),
+        login_date = values(login_date),
+        create_by = values(create_by),
+        create_time = values(create_time),
+        update_by = values(update_by),
+        update_time = values(update_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update hqh_teacher
+        <set>
+            <if test="teacherName != null and teacherName != ''">
+                teacher_name = #{teacherName},
+            </if>
+            <if test="nickName != null and nickName != ''">
+                nick_name = #{nickName},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="phonenumber != null and phonenumber != ''">
+                phonenumber = #{phonenumber},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex},
+            </if>
+            <if test="avatar != null and avatar != ''">
+                avatar = #{avatar},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+            <if test="delFlag != null and delFlag != ''">
+                del_flag = #{delFlag},
+            </if>
+            <if test="loginIp != null and loginIp != ''">
+                login_ip = #{loginIp},
+            </if>
+            <if test="loginDate != null">
+                login_date = #{loginDate},
+            </if>
+            <if test="createBy != null and createBy != ''">
+                create_by = #{createBy},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                update_by = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where teacher_id = #{teacherId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from hqh_teacher where teacher_id = #{teacherId}
+    </delete>
+
+</mapper>
+
